@@ -1,19 +1,46 @@
+.photograph-header h1 {
+    color: #D3573C;
+    font-size: 56px;
+    margin: 0;
+}
+
 #contact_modal {
     display: none;
 }
 
 .photograph-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     background-color: #FAFAFA;
-    height: 300px;
-    margin: 0 100px;
+    /*height: 300px;*/
+    /*margin: 0 100px;*/
+}
+
+.photograph-header article {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photograph-header .infos_photographers {
+    align-items: flex-start;
+    padding: 50px;
+    gap: 20px;
+}
+
+.photograph-header .infos_photographers p {
+    margin: 0;
 }
 
 .contact_button {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: white;
     padding: 11px;
-    width: 170px;
+    width: 159px;
     height: 70px;
     border: none;
     background-color: #901C1C;
@@ -73,4 +100,139 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+.photograph-header .img_container img{
+    position: relative;
+    height: 140%;
+    width: 140%;
+    left: -30px;
+    top: -35px;
+    object-fit: cover;
+}
+
+/*   DROPDOWN      */
+
+.trier {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+    padding-top: 20px;
+}
+
+/* Common styles for dropdown components */
+.dropdown {
+    border-radius: 5px;
+    margin-left: 25px;
+    margin-top: 9px;
+    position: relative;
+    display: flex;
+    width: 170px;
+    flex-direction: column;
+    background: #901C1C;
+}
+
+
+.dropdown-menu {
+    display: none;
+    transition: display 0.2s ease;
+    list-style: none;
+    height: 106px;
+}
+
+.dropdown-option {
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0em;
+    color: white;
+    background: #901C1C;
+    width: 100%;
+    padding-left: 20px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
+
+.selected {
+    height: 64px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0em;
+    color: white;
+    background: #901C1C;
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: 19px;
+    top: 18px;
+    transition: transform 0.15s ease-in-out;
+}
+
+/* Hover and focus styles for dropdown options */
+.dropdown-option:hover,
+#filter-popularite:hover,
+.dropdown-option:focus,
+#filter-popularite:focus {
+    background-color: #D3573C;
+    color: #FFFFFF;
+}
+
+
+/* Dropdown divider styles */
+.dropdown-divider {
+    border-top: 1px solid #FFFFFF;
+    position: absolute;
+    width: 100%;
+    top: 64px; /* Position the first divider */
+}
+
+.cityCountry {
+    color: #901C1C;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tagLine {
+  color: #757575;
+  font-size: 18px;
+}
+
+.dropdown svg {
+    position: absolute;
+    z-index: 500;
+}
+
+li {
+    list-style: none;
+}
+
+.dropdown-divider {
+    position: absolute;
+    width: 150px;
+    height: 1px;
+    left: 10px;
+    background-color: white;
+    border: none;
+}
+
+/* Position the dividers */
+.dropdown-divider:first-of-type {
+    top: 113px; /* Position the first divider */
 }
