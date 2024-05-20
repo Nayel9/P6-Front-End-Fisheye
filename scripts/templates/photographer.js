@@ -31,16 +31,12 @@ function photographerTemplate(data) {
 
         const pCityCountry = document.createElement('p');
         pCityCountry.textContent = `${city}, ${country}`;
-        pCityCountry.style.fontSize = '17px';
-        pCityCountry.style.fontWeight = 'bold';
-        pCityCountry.style.color = '#901C1C';
+        pCityCountry.classList.add('cityCountry');
         pCityCountry.setAttribute('tabindex', '0');
 
         const pTagline = document.createElement('p');
         pTagline.textContent = tagline;
-        pTagline.style.fontSize = '13px';
-        pTagline.style.fontWeight = 'bold';
-        pTagline.style.color = '#000000';
+        pTagline.classList.add('tagLine');
         pTagline.setAttribute('tabindex', '0');
 
         const pPrice = document.createElement('p');

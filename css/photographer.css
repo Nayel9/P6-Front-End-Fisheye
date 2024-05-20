@@ -1,3 +1,7 @@
+li {
+    list-style: none;
+}
+
 .photograph-header h1 {
     color: #D3573C;
     font-size: 56px;
@@ -14,8 +18,6 @@
     justify-content: center;
     align-items: center;
     background-color: #FAFAFA;
-    /*height: 300px;*/
-    /*margin: 0 100px;*/
 }
 
 .photograph-header article {
@@ -111,6 +113,16 @@ form input {
     object-fit: cover;
 }
 
+
+/*      Filters       */
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
 /*   DROPDOWN      */
 
 .trier {
@@ -122,86 +134,91 @@ form input {
     padding-top: 20px;
 }
 
-/* Common styles for dropdown components */
 .dropdown {
     border-radius: 5px;
     margin-left: 25px;
-    margin-top: 9px;
+    margin-top: 20px;
     position: relative;
     display: flex;
     width: 170px;
+    height: 55px;
     flex-direction: column;
     background: #901C1C;
+    cursor: pointer;
+
 }
 
 
 .dropdown-menu {
     display: none;
-    transition: display 0.2s ease;
+    transition: display 350ms ease-out;
     list-style: none;
-    height: 106px;
+    background: #901C1C;
+    padding-left: 0;
+    cursor: pointer;
+    border-radius: 0 0 5px 5px;
+    margin-top: 0;
 }
 
 .dropdown-option {
     text-align: left;
     cursor: pointer;
-    outline: none;
     font-size: 18px;
     font-weight: 700;
-    line-height: 23px;
-    letter-spacing: 0em;
-    color: white;
-    background: #901C1C;
-    width: 100%;
     padding-left: 20px;
+    color: white;
+    /*background: #901C1C;*/
     height: 52px;
     display: flex;
     align-items: center;
 }
 
 .selected {
-    height: 64px;
+    height: 55px;
     border: none;
     border-radius: 5px;
     display: flex;
-    justify-content: space-between;
-    position: relative;
+    padding-left: 20px;
     align-items: center;
-    text-align: left;
+    /*text-align: left;*/
     cursor: pointer;
     outline: none;
     font-size: 18px;
     font-weight: 700;
-    line-height: 23px;
-    letter-spacing: 0em;
     color: white;
     background: #901C1C;
 }
 
 .dropdown-icon {
     position: absolute;
-    right: 19px;
-    top: 18px;
+    height: 18px;
+    width: 18px;
+    right: 20px;
+    top: 16px;
+    z-index: 9999;
+    fill: white;
     transition: transform 0.15s ease-in-out;
 }
 
-/* Hover and focus styles for dropdown options */
+
+/* Hover focus dropdown options */
 .dropdown-option:hover,
-#filter-popularite:hover,
-.dropdown-option:focus,
-#filter-popularite:focus {
+.dropdown-option:focus, .contact_button:hover,
+.contact_button:focus,
+.selected:hover, .selected:focus {
     background-color: #D3573C;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 
-/* Dropdown divider styles */
+/* Dropdown divider */
 .dropdown-divider {
+    margin-left: 10px;
+    margin-right: 10px;
     border-top: 1px solid #FFFFFF;
-    position: absolute;
-    width: 100%;
-    top: 64px; /* Position the first divider */
+    position: relative;
 }
+/*      JS Class        */
 
 .cityCountry {
     color: #901C1C;
@@ -210,29 +227,39 @@ form input {
 }
 
 .tagLine {
-  color: #757575;
-  font-size: 18px;
+    color: #757575;
+    font-size: 18px;
 }
 
-.dropdown svg {
-    position: absolute;
-    z-index: 500;
+.priceLine {
+    color: #757575;
+    font-size: 12px;
 }
 
-li {
-    list-style: none;
+.hidden {
+    display: none;
 }
 
-.dropdown-divider {
-    position: absolute;
-    width: 150px;
-    height: 1px;
-    left: 10px;
-    background-color: white;
-    border: none;
+.dropdown.open,
+.selected.open {
+    border-radius: 5px 5px 0 0;
+}
+.selected.open{
+    padding: 15px 0 15px 20px;
+    z-index: 10;
+    /*height: 55px;*/
+    position: relative;
+
 }
 
-/* Position the dividers */
-.dropdown-divider:first-of-type {
-    top: 113px; /* Position the first divider */
+.dropdown-icon.open-rotate {
+    transform: rotate(180deg);
+    transition: transform 350ms ease-out;
 }
+
+.dropdown-icon.close-rotate {
+    transform: rotate(0deg);
+    transition: transform 350ms ease-out;
+}
+
+/*      End of JS Class     */

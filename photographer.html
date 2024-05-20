@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -20,29 +20,28 @@
 
         <section class="gallery" aria-label="Galerie de photos et videos">
 
-            <h2 class="trier">Trier par</h2>
+            <div class="filters" aria-label="Filtres">
 
-            <div class="dropdown" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="options">
-                <div class="selected">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="dropdown-icon">
-                        <g clip-path="url(#clip0_173725_75)">
-                            <path d="M9.88 20.5466L16 14.44L22.12 20.5466L24 18.6666L16 10.6666L8 18.6666L9.88 20.5466Z" fill="white" />
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_173725_75">
-                                <rect width="32" height="32" fill="white" transform="translate(32 32) rotate(-180)" />
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </div>
-                <ol id="options" class="dropdown-menu" role="listbox" aria-label="Options">
-                    <li class="dropdown-option" tabindex="0" role="option" id="filter-popularite" data-order="1">Popularité</li>
-                    <li class="dropdown-divider" role="separator"></li>
-                    <li class="dropdown-option" tabindex="0" role="option" id="filter-date" data-order="2">Date</li>
-                    <li class="dropdown-divider" role="separator"></li>
-                    <li class="dropdown-option" tabindex="0" role="option" id="filter-titre" data-order="3">Titre</li>
-                </ol>
+                    <h2 class="trier" tabindex="0">Trier par</h2>
+
+                    <div class="dropdown" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="options">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 512 512" class="dropdown-icon">
+                                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+                            </svg>
+                        <div class="selected" tabindex="0">
+
+                        </div>
+                        <ol id="options" class="dropdown-menu" role="listbox" aria-label="Options">
+                            <li class="dropdown-divider" role="separator"></li>
+                            <li class="dropdown-option" tabindex="0" role="option" id="filter-popularite" data-order="1">Popularité</li>
+                            <li class="dropdown-divider" role="separator"></li>
+                            <li class="dropdown-option" tabindex="0" role="option" id="filter-date" data-order="2">Date</li>
+                            <li class="dropdown-divider" role="separator"></li>
+                            <li class="dropdown-option" tabindex="0" role="option" id="filter-titre" data-order="3">Titre</li>
+                        </ol>
+                    </div>
             </div>
+
             <div class="photo-grid" id="photo-grid" role="group" aria-label="Galerie de photos et videos">
                 <!-- Photos will be dynamically added here -->
             </div>

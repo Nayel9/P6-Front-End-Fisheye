@@ -1,13 +1,31 @@
-// Récupérer l'ID du photographe à partir de l'URL
-const urlParams = new URLSearchParams(window.location.search);
-const photographerId = urlParams.get('id');
+class PhotographerPage {
+    constructor() {
+        this.dropdown = document.querySelector('.dropdown');
+        this.options = document.querySelector('.dropdown-menu');
+        this.dropdownButton = document.querySelector('.dropdown');
+        this.dropdownIcon = document.querySelector('.dropdown-icon');
+        this.dropdownOptions = document.querySelectorAll('.dropdown-option');
+        this.selectedOption = document.querySelector('#filter-popularite');
+        this.photographerId = new URLSearchParams(window.location.search).get('id');
+    }
 
-// Récupérer les informations du photographe à partir du fichier JSON
-fetch('data/photographers.json')
-    .then(response => response.json())
-    .then(data => {
-        const photographer = data.photographers.find(p => p.id === parseInt(photographerId));
+    init() {
+        this.fetchPhotographerData();
+        this.initDropdown();
+        this.initDropdownOptions();
+        this.initPageLoad();
+    }
 
+    fetchPhotographerData() {
+        fetch('data/photographers.json')
+            .then(response => response.json())
+            .then(data => {
+                const photographer = data.photographers.find(p => p.id === parseInt(this.photographerId));
+                this.renderPhotographerData(photographer);
+            });
+    }
+
+    renderPhotographerData(photographer) {
         // Créer les éléments HTML pour chaque information
         const nameElement = document.createElement('h1');
         nameElement.textContent = photographer.name;
@@ -47,7 +65,6 @@ fetch('data/photographers.json')
         imgElement.src = `assets/photographers/${photographer.portrait}`;
         imgElement.alt = `Portrait du photographe ${photographer.name}`;
 
-
         // Ajouter l'image à la balise  div
         imgContainer.appendChild(imgElement);
 
@@ -55,4 +72,87 @@ fetch('data/photographers.json')
         const headerElement = document.querySelector('.photograph-header');
         headerElement.insertBefore(infoArticle, headerElement.firstChild); // place l'article avant le premier enfant (le bouton)
         headerElement.appendChild(imgArticle); // place la balise article contenant l'image après le bouton
-    });
+    }
+
+    initDropdown() {
+        this.options.style.display = 'none';
+        this.dropdownButton.addEventListener('click', () => this.toggleDropdown());
+        this.dropdownButton.addEventListener('keydown', (event) => this.handleDropdownKeydown(event));
+    }
+
+    toggleDropdown() {
+        if (this.options.style.display === 'none') {
+            this.openDropdown();
+        } else {
+            this.closeDropdown();
+        }
+    }
+
+    openDropdown() {
+        this.options.style.display = 'block';
+        this.dropdown.classList.add('open');
+        document.querySelector('.selected').classList.add('open');
+        this.dropdownIcon.classList.remove('close-rotate');
+        this.dropdownIcon.classList.add('open-rotate');
+    }
+
+    closeDropdown() {
+        this.options.style.display = 'none';
+        this.dropdown.classList.remove('open');
+        document.querySelector('.selected').classList.remove('open');
+        this.dropdownIcon.classList.remove('open-rotate');
+        this.dropdownIcon.classList.add('close-rotate');
+    }
+
+    handleDropdownKeydown(event) {
+        switch (event.key) {
+            case 'Enter':
+                this.toggleDropdown();
+                break;
+            case 'ArrowUp':
+                if (this.selectedOption.previousElementSibling) {
+                    this.selectedOption = this.selectedOption.previousElementSibling;
+                }
+                break;
+            case 'ArrowDown':
+                if (this.selectedOption.nextElementSibling) {
+                    this.selectedOption = this.selectedOption.nextElementSibling;
+                }
+                break;
+        }
+    }
+
+    initDropdownOptions() {
+        this.dropdownOptions.forEach(option => {
+            option.addEventListener('click', () => this.selectOption(option));
+            option.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    this.selectOption(option);
+                }
+            });
+        });
+    }
+
+    selectOption(option) {
+        const selectedElement = document.querySelector('.dropdown .selected');
+        selectedElement.textContent = option.textContent;
+
+        if (this.selectedOption) {
+            this.selectedOption.classList.remove('hidden');
+        }
+        option.classList.add('hidden');
+        this.selectedOption = option;
+    }
+
+    initPageLoad() {
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectedElement = document.querySelector('.dropdown .selected');
+            const defaultOption = document.querySelector('#filter-popularite');
+            selectedElement.textContent = defaultOption.textContent;
+            defaultOption.classList.add('hidden');
+        });
+    }
+}
+
+const photographerPage = new PhotographerPage();
+photographerPage.init();
