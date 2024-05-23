@@ -1,4 +1,13 @@
+/**
+ * @class PhotographerPage
+ * @description Représente une page pour un photographe spécifique.
+ */
 class PhotographerPage {
+
+    /**
+     * @constructor
+     * @description Construit une nouvelle instance de PhotographerPage.
+     */
     constructor() {
         this.dropdown = document.querySelector('.dropdown');
         this.options = document.querySelector('.dropdown-menu');
@@ -9,26 +18,38 @@ class PhotographerPage {
         this.photographerId = new URLSearchParams(window.location.search).get('id');
     }
 
+    /**
+     * @method init
+     * @description Initialise la PhotographerPage.
+     */
     init() {
-    this.fetchPhotographerData();
-    this.fetchPhotoData();
-    this.initDropdown();
-    this.initDropdownOptions();
-    this.initPageLoad();
-}
+        this.fetchPhotographerData();
+        this.fetchPhotoData();
+        this.initDropdown();
+        this.initDropdownOptions();
+        this.initPageLoad();
+        this.fetchPricePhotographer();
+    }
+
+    /**
+     * @method fetchPhotographerData
+     * @description Récupère les données du photographe.
+     */
     fetchPhotographerData() {
-        // Faites une requête pour récupérer les informations du photographe
         fetch('data/photographers.json')
             .then(response => response.json())
             .then(data => {
                 const photographer = data.photographers.find(p => p.id === parseInt(this.photographerId));
                 this.renderPhotographerData(photographer);
-
-                // Stockez l'image du photographe dans le localStorage
                 localStorage.setItem('photographerImage', photographer.portrait);
             });
     }
 
+    /**
+     * @method renderPhotographerData
+     * @description Affiche les données du photographe.
+     * @param {Object} photographer - Les données du photographe.
+     */
     renderPhotographerData(photographer) {
         // Créer les éléments HTML pour chaque information
         const nameElement = document.createElement('h1');
@@ -78,12 +99,20 @@ class PhotographerPage {
         headerElement.appendChild(imgArticle); // place la balise article contenant l'image après le bouton
     }
 
+    /**
+     * @method initDropdown
+     * @description Initialise le menu déroulant.
+     */
     initDropdown() {
         this.options.style.display = 'none';
         this.dropdownButton.addEventListener('click', () => this.toggleDropdown());
         this.dropdownButton.addEventListener('keydown', (event) => this.handleDropdownKeydown(event));
     }
 
+    /**
+     * @method toggleDropdown
+     * @description Bascule le menu déroulant.
+     */
     toggleDropdown() {
         if (this.options.style.display === 'none') {
             this.openDropdown();
@@ -92,6 +121,10 @@ class PhotographerPage {
         }
     }
 
+    /**
+     * @method openDropdown
+     * @description Ouvre le menu déroulant.
+     */
     openDropdown() {
         this.options.style.display = 'block';
         this.dropdown.classList.add('open');
@@ -100,6 +133,10 @@ class PhotographerPage {
         this.dropdownIcon.classList.add('open-rotate');
     }
 
+    /**
+     * @method closeDropdown
+     * @description Ferme le menu déroulant.
+     */
     closeDropdown() {
         this.options.style.display = 'none';
         this.dropdown.classList.remove('open');
@@ -108,6 +145,11 @@ class PhotographerPage {
         this.dropdownIcon.classList.add('close-rotate');
     }
 
+    /**
+     * @method handleDropdownKeydown
+     * @description Gère les événements de touche pour le menu déroulant.
+     * @param {Object} event - L'événement de touche.
+     */
     handleDropdownKeydown(event) {
         switch (event.key) {
             case 'Enter':
@@ -126,6 +168,10 @@ class PhotographerPage {
         }
     }
 
+    /**
+     * @method initDropdownOptions
+     * @description Initialise les options du menu déroulant.
+     */
     initDropdownOptions() {
         this.dropdownOptions.forEach(option => {
             option.addEventListener('click', () => this.selectOption(option));
@@ -137,6 +183,11 @@ class PhotographerPage {
         });
     }
 
+    /**
+     * @method selectOption
+     * @description Sélectionne une option du menu déroulant.
+     * @param {Object} option - L'option du menu déroulant à sélectionner.
+     */
     selectOption(option) {
         const selectedElement = document.querySelector('.dropdown .selected');
         selectedElement.textContent = option.textContent;
@@ -148,6 +199,10 @@ class PhotographerPage {
         this.selectedOption = option;
     }
 
+    /**
+     * @method initPageLoad
+     * @description Initialise l'événement de chargement de la page.
+     */
     initPageLoad() {
         document.addEventListener('DOMContentLoaded', () => {
             const selectedElement = document.querySelector('.dropdown .selected');
@@ -156,15 +211,18 @@ class PhotographerPage {
             defaultOption.classList.add('hidden');
         });
     }
+
+    /**
+     * @method fetchPhotoData
+     * @description Récupère les données des photos.
+     */
     fetchPhotoData() {
-        // Faites une requête pour récupérer les informations des photos
         fetch('data/photographers.json')
             .then(response => response.json())
             .then(data => {
                 const photos = data.media.filter(p => p.photographerId === parseInt(this.photographerId));
                 this.renderPhotoData(photos, this.photographerName);
 
-                // Stockez les images et les vidéos dans le localStorage
                 photos.forEach(photo => {
                     if (photo.image) {
                         localStorage.setItem(`photoImage${photo.id}`, photo.image);
@@ -175,40 +233,40 @@ class PhotographerPage {
             });
     }
 
-renderPhotoData(photos, photographerName) {
-    const photoGrid = document.querySelector('.photo-grid');
-    const mediaFactory = new MediaFactory();
+    /**
+     * @method renderPhotoData
+     * @description Affiche les données des photos.
+     * @param {Array} photos - Les données des photos.
+     * @param {string} photographerName - Le nom du photographe.
+     */
+    renderPhotoData(photos, photographerName) {
+        const photoGrid = document.querySelector('.photo-grid');
+        const mediaFactory = new MediaFactory();
 
-    photos.forEach(photoData => {
-        const media = mediaFactory.createMedia(photoData);
-        const mediaElement = media.createElement();
+        photos.forEach(photoData => {
+            const media = mediaFactory.createMedia(photoData);
+            const mediaElement = media.createElement();
 
-        // Créer une balise div avec la classe media_card
-        const mediaCard = document.createElement('div');
-        mediaCard.className = 'media_card';
-        mediaCard.tabIndex = 0; // Rendre la media_card focusable
-        mediaCard.role = 'group'; // Ajouter un rôle ARIA
+            const mediaCard = document.createElement('div');
+            mediaCard.className = 'media_card';
+            mediaCard.tabIndex = 0;
+            mediaCard.role = 'group';
 
-        // Ajouter l'élément media à la balise media_card
-        mediaCard.appendChild(mediaElement);
+            mediaCard.appendChild(mediaElement);
 
-        // Créer une balise div avec la classe content
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'card_content';
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'card_content';
 
-        // Créer une balise p pour le nom de la photo ou de la vidéo
-        const nameP = document.createElement('p');
-        nameP.textContent = media.title;
-        contentDiv.appendChild(nameP);
+            const nameP = document.createElement('p');
+            nameP.textContent = media.title;
+            contentDiv.appendChild(nameP);
 
-        // Créer une balise div pour le nombre de likes et le solid heart
-        const likesDiv = document.createElement('div');
-        likesDiv.className = 'like_number';
+            const likesDiv = document.createElement('div');
+            likesDiv.className = 'like_number';
 
-        // Créer une balise p pour le nombre de likes
-        const likesP = document.createElement('p');
-        likesP.textContent = `${media.likes} `;
-        likesDiv.appendChild(likesP);
+            const likesP = document.createElement('p');
+            likesP.textContent = `${media.likes} `;
+            likesDiv.appendChild(likesP);
 
         // Créer une balise i pour le solid heart
         const heartIcon = document.createElement('i');
@@ -226,9 +284,43 @@ renderPhotoData(photos, photographerName) {
         photoGrid.appendChild(mediaCard);
     });
 }
+
+/**
+ * @method fetchPricePhotographer
+ * @param {Object} photographer - Les données du photographe.
+ * @description Récupère le prix du photographe.
+*/
+    fetchPricePhotographer() {
+        fetch('data/photographers.json')
+            .then(response => response.json())
+            .then(data => {
+                const photographer = data.photographers.find(p => p.id === parseInt(this.photographerId));
+                this.renderPricePhotographer(photographer);
+            });
+    }
+    renderPricePhotographer(photographer) {
+    const priceElement = document.createElement('p');
+    priceElement.textContent = `${photographer.price}€/jour`;
+    priceElement.setAttribute('tabindex', '0');
+    priceElement.setAttribute('aria-label', `${photographer.price} euros par jour`);
+    const priceDiv = document.querySelector('.price');
+    priceDiv.appendChild(priceElement);
 }
 
+}
+
+/**
+ * @class MediaFactory
+ * @description Usine pour créer des objets Media.
+ */
 class MediaFactory {
+
+    /**
+     * @method createMedia
+     * @description Crée un nouvel objet Media.
+     * @param {Object} mediaData - Les données pour le média.
+     * @returns {Media} L'objet Media créé.
+     */
     createMedia(mediaData) {
         if (mediaData.image) {
             return new Photo(mediaData);
@@ -238,23 +330,54 @@ class MediaFactory {
     }
 }
 
+/**
+ * @class Media
+ * @description Représente un élément multimédia.
+ */
 class Media {
+
+    /**
+     * @constructor
+     * @description Construit une nouvelle instance de Media.
+     * @param {Object} mediaData - Les données pour le média.
+     */
     constructor(mediaData) {
         this.title = mediaData.title;
         this.likes = mediaData.likes;
     }
 
+    /**
+     * @method createElement
+     * @description Crée un élément HTML pour le média.
+     * @throws {Error} Si la méthode n'est pas implémentée.
+     */
     createElement() {
         throw new Error("Method 'createElement' must be implemented.");
     }
 }
 
+/**
+ * @class Photo
+ * @description Représente une photo.
+ * @extends Media
+ */
 class Photo extends Media {
+
+    /**
+     * @constructor
+     * @description Construit une nouvelle instance de Photo.
+     * @param {Object} mediaData - Les données pour la photo.
+     */
     constructor(mediaData) {
         super(mediaData);
         this.image = mediaData.image;
     }
 
+    /**
+     * @method createElement
+     * @description Crée un élément HTML pour la photo.
+     * @returns {HTMLElement} L'élément HTML créé.
+     */
     createElement() {
         const imgElement = document.createElement('img');
         imgElement.src = `assets/images/media/${this.image}`;
@@ -263,12 +386,30 @@ class Photo extends Media {
     }
 }
 
+/**
+ * @class Video
+ * @description Représente une vidéo.
+ * @extends Media
+ */
+
 class Video extends Media {
+
+    /**
+     *
+     * @constructor
+     * @description Construit une nouvelle instance de Video.
+     * @param {Object} mediaData - Les données pour la vidéo.
+     */
     constructor(mediaData) {
         super(mediaData);
         this.video = mediaData.video;
     }
 
+    /**
+     * @method createElement
+     * @description Crée un élément HTML pour la vidéo.
+     * @returns {HTMLElement} L'élément HTML créé.
+     */
     createElement() {
         const vidElement = document.createElement('video');
         vidElement.src = `assets/images/media/${this.video}`;

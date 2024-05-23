@@ -204,7 +204,7 @@ form input {
 .dropdown-option:focus, .contact_button:hover,
 .contact_button:focus,
 .selected:hover, .selected:focus {
-    background-color: #D3573C;
+    background-color: #DB8876;
     color: #000000;
 }
 
@@ -256,6 +256,28 @@ form input {
     align-items: center;
     gap: 5px;
 }
+
+/*      Price and like      */
+
+.pricandlikes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 24px;
+    font-weight: bold;
+    padding:0 35px 0 35px;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    margin-left: 910px;
+    width: 306px;
+    height: 68px;
+    z-index: 1000;
+    background-color: #DB8876;
+    border-radius: 5px 5px 0 0;
+}
+
+
 /*      JS Class        */
 
 .cityCountry {
