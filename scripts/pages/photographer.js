@@ -16,27 +16,18 @@ class PhotographerPage {
     this.initDropdownOptions();
     this.initPageLoad();
 }
-   fetchPhotographerData() {
-    // Vérifiez si les informations du photographe sont déjà stockées dans le localStorage
-    const storedPhotographer = localStorage.getItem('photographer');
-
-    if (storedPhotographer) {
-        // Si les informations du photographe sont stockées, parsez-les et utilisez-les
-        const photographer = JSON.parse(storedPhotographer);
-        this.renderPhotographerData(photographer);
-    } else {
-        // Si les informations du photographe ne sont pas stockées, faites une requête pour les récupérer
+    fetchPhotographerData() {
+        // Faites une requête pour récupérer les informations du photographe
         fetch('data/photographers.json')
             .then(response => response.json())
             .then(data => {
                 const photographer = data.photographers.find(p => p.id === parseInt(this.photographerId));
                 this.renderPhotographerData(photographer);
 
-                // Stockez les informations du photographe dans le localStorage
-                localStorage.setItem('photographer', JSON.stringify(photographer));
+                // Stockez l'image du photographe dans le localStorage
+                localStorage.setItem('photographerImage', photographer.portrait);
             });
     }
-}
 
     renderPhotographerData(photographer) {
         // Créer les éléments HTML pour chaque information
@@ -165,28 +156,24 @@ class PhotographerPage {
             defaultOption.classList.add('hidden');
         });
     }
-   fetchPhotoData() {
-    // Vérifiez si les médias sont déjà stockés dans le localStorage
-    const storedMedia = localStorage.getItem('media');
-
-    if (storedMedia) {
-        // Si les médias sont stockés, parsez-les et utilisez-les
-        const media = JSON.parse(storedMedia);
-        this.renderPhotoData(media, this.photographerName);
-    } else {
-        // Si les médias ne sont pas stockés, faites une requête pour les récupérer
+    fetchPhotoData() {
+        // Faites une requête pour récupérer les informations des photos
         fetch('data/photographers.json')
             .then(response => response.json())
             .then(data => {
-                const photographer = data.photographers.find(p => p.id === parseInt(this.photographerId));
                 const photos = data.media.filter(p => p.photographerId === parseInt(this.photographerId));
-                this.renderPhotoData(photos, photographer.name);
+                this.renderPhotoData(photos, this.photographerName);
 
-                // Stockez les médias dans le localStorage
-                localStorage.setItem('media', JSON.stringify(photos));
+                // Stockez les images et les vidéos dans le localStorage
+                photos.forEach(photo => {
+                    if (photo.image) {
+                        localStorage.setItem(`photoImage${photo.id}`, photo.image);
+                    } else if (photo.video) {
+                        localStorage.setItem(`photoVideo${photo.id}`, photo.video);
+                    }
+                });
             });
     }
-}
 
 renderPhotoData(photos, photographerName) {
     const photoGrid = document.querySelector('.photo-grid');
