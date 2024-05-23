@@ -4,8 +4,8 @@
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         } else {
-            const data = await response.json();
-            return data;
+            // const data = await response.json();
+            // return data;
         }
     }
         // et bien retourner le tableau photographers seulement une fois récupéré

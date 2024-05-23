@@ -10,12 +10,12 @@ class PhotographerPage {
     }
 
     init() {
-        this.fetchPhotographerData();
-        this.initDropdown();
-        this.initDropdownOptions();
-        this.initPageLoad();
-    }
-
+    this.fetchPhotographerData();
+    this.fetchPhotoData();
+    this.initDropdown();
+    this.initDropdownOptions();
+    this.initPageLoad();
+}
     fetchPhotographerData() {
         fetch('data/photographers.json')
             .then(response => response.json())
@@ -151,6 +151,117 @@ class PhotographerPage {
             selectedElement.textContent = defaultOption.textContent;
             defaultOption.classList.add('hidden');
         });
+    }
+   fetchPhotoData() {
+    fetch('data/photographers.json')
+        .then(response => response.json())
+        .then(data => {
+            const photographer = data.photographers.find(p => p.id === parseInt(this.photographerId));
+            const photos = data.media.filter(p => p.photographerId === parseInt(this.photographerId));
+            this.renderPhotoData(photos, photographer.name);
+        });
+}
+
+renderPhotoData(photos) {
+    const photoGrid = document.querySelector('.photo-grid');
+    const mediaFactory = new MediaFactory();
+
+    photos.forEach(photoData => {
+        const media = mediaFactory.createMedia(photoData);
+        const mediaElement = media.createElement();
+
+        // Créer une balise div avec la classe media_card
+        const mediaCard = document.createElement('div');
+        mediaCard.className = 'media_card';
+        mediaCard.tabIndex = 0; // Rendre la media_card focusable
+        mediaCard.role = 'group'; // Ajouter un rôle ARIA
+
+        // Ajouter l'élément media à la balise media_card
+        mediaCard.appendChild(mediaElement);
+
+        // Créer une balise div avec la classe content
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'card_content';
+
+        // Créer une balise p pour le nom de la photo ou de la vidéo
+        const nameP = document.createElement('p');
+        nameP.textContent = media.title;
+        contentDiv.appendChild(nameP);
+
+        // Créer une balise div pour le nombre de likes et le solid heart
+        const likesDiv = document.createElement('div');
+        likesDiv.className = 'like_number';
+
+        // Créer une balise p pour le nombre de likes
+        const likesP = document.createElement('p');
+        likesP.textContent = `${media.likes} `;
+        likesDiv.appendChild(likesP);
+
+        // Créer une balise i pour le solid heart
+        const heartIcon = document.createElement('i');
+        heartIcon.className = 'fa-solid fa-heart';
+        // Ajouter la balise i à la balise div like_numer
+        likesDiv.appendChild(heartIcon);
+
+        // Ajouter la balise like_numer à la balise content
+        contentDiv.appendChild(likesDiv);
+
+        // Ajouter la balise content à la balise media_card
+        mediaCard.appendChild(contentDiv);
+
+        // Ajouter la balise media_card à la grille de photos
+        photoGrid.appendChild(mediaCard);
+    });
+}
+}
+
+class MediaFactory {
+    createMedia(mediaData) {
+        if (mediaData.image) {
+            return new Photo(mediaData);
+        } else if (mediaData.video) {
+            return new Video(mediaData);
+        }
+    }
+}
+
+class Media {
+    constructor(mediaData) {
+        this.title = mediaData.title;
+        this.likes = mediaData.likes;
+    }
+
+    createElement() {
+        throw new Error("Method 'createElement' must be implemented.");
+    }
+}
+
+class Photo extends Media {
+    constructor(mediaData) {
+        super(mediaData);
+        this.image = mediaData.image;
+    }
+
+    createElement() {
+        const imgElement = document.createElement('img');
+        imgElement.src = `assets/images/media/${this.image}`;
+        imgElement.alt = this.title;
+        return imgElement;
+    }
+}
+
+class Video extends Media {
+    constructor(mediaData) {
+        super(mediaData);
+        this.video = mediaData.video;
+    }
+
+    createElement() {
+        const vidElement = document.createElement('video');
+        vidElement.src = `assets/images/media/${this.video}`;
+        vidElement.alt = this.title;
+        vidElement.controls = true;
+        return vidElement;
     }
 }
 
