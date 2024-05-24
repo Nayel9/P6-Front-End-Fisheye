@@ -8,10 +8,6 @@ li {
     margin: 0;
 }
 
-#contact_modal {
-    display: none;
-}
-
 .photograph-header {
     display: flex;
     flex-direction: row;
@@ -37,7 +33,7 @@ li {
     margin: 0;
 }
 
-.contact_button {
+.contact_button, .sending_button {
     font-size: 18px;
     font-weight: bold;
     color: white;
@@ -50,16 +46,26 @@ li {
     cursor: pointer;
 }
 
+/*      Modal Contact       */
+#contact_modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    height: 100%;
+    width: 1440px;
+    background-color: rgba(196, 196, 196, 0.4);
+}
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
+    width: 670px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 35px;
-    margin: auto;
+    margin: 100px auto;
+
 }
 
 .modal header {
@@ -165,7 +171,6 @@ form input {
     font-weight: 700;
     padding-left: 20px;
     color: white;
-    /*background: #901C1C;*/
     height: 52px;
     display: flex;
     align-items: center;
@@ -178,7 +183,6 @@ form input {
     display: flex;
     padding-left: 20px;
     align-items: center;
-    /*text-align: left;*/
     cursor: pointer;
     outline: none;
     font-size: 18px;
@@ -193,7 +197,7 @@ form input {
     width: 18px;
     right: 20px;
     top: 16px;
-    z-index: 9999;
+    z-index: 10;
     fill: white;
     transition: transform 0.15s ease-in-out;
 }
@@ -202,7 +206,7 @@ form input {
 /* Hover focus dropdown options */
 .dropdown-option:hover,
 .dropdown-option:focus, .contact_button:hover,
-.contact_button:focus,
+.contact_button:focus, .sending_button:hover,.sending_button:focus
 .selected:hover, .selected:focus {
     background-color: #DB8876;
     color: #000000;
@@ -272,7 +276,7 @@ form input {
     margin-left: 910px;
     width: 306px;
     height: 68px;
-    z-index: 1000;
+    z-index: 10;
     background-color: #DB8876;
     border-radius: 5px 5px 0 0;
 }
@@ -307,7 +311,6 @@ form input {
 .selected.open{
     padding: 15px 0 15px 20px;
     z-index: 10;
-    /*height: 55px;*/
     position: relative;
 
 }

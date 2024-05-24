@@ -82,7 +82,7 @@ class PhotographerPage {
         const imgContainer = document.createElement('div');
         imgContainer.className = 'img_container';
         imgContainer.setAttribute('tabindex', '0');
-        imgContainer.setAttribute('aria-label', `Portait du Photographe ${name}`);
+        imgContainer.setAttribute('aria-label', `Portait du Photographe ${photographer.name}`);
 
         imgArticle.appendChild(imgContainer);
 
@@ -287,9 +287,8 @@ class PhotographerPage {
 
 /**
  * @method fetchPricePhotographer
- * @param {Object} photographer - Les données du photographe.
  * @description Récupère le prix du photographe.
-*/
+ */
     fetchPricePhotographer() {
         fetch('data/photographers.json')
             .then(response => response.json())

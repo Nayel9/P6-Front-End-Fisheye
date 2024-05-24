@@ -8,10 +8,28 @@
       <script src="https://kit.fontawesome.com/1e38fcc92e.js" crossorigin="anonymous"></script>
     <title>Fisheye - photographe </title>
   </head>
+
+  <div id="contact_modal" class="bground" tabindex="-1">
+      <div class="modal">
+          <header>
+              <h2>Contactez-moi</h2>
+              <img src="assets/icons/close.svg" class="close_btn" tabindex="0" aria-label="Fermer le formulaire"/>
+          </header>
+          <form>
+              <div>
+                  <label>Prénom</label>
+                  <input />
+              </div>
+              <button class="sending_button">Envoyer</button>
+          </form>
+      </div>
+  </div>
+
+  <header>
+      <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye lien vers page d'accueil"/></a>
+  </header>
   <body>
-    <header>
-        <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye lien vers page d'accueil"/></a>
-    </header>
+
     <main id="main">
         <section class="pricandlikes">
             <div class="like_counter">
@@ -25,7 +43,7 @@
 
         <section class="photograph-header" aria-label="Fiche info Photographe">
             <article>
-                <button class="contact_button" aria-label="Me Contacter" onclick="displayModal()">Contactez-moi</button>
+                <button class="contact_button" aria-label="Me Contacter">Contactez-moi</button>
             </article>
         </section>
 
@@ -58,21 +76,6 @@
             </div>
         </section>
     </main>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
     <script src="scripts/pages/photographer.js"></script>
     <script src="scripts/utils/contactForm.js"></script>
   </body>
