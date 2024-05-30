@@ -150,24 +150,11 @@ class PhotographerPage {
      * @description Gère les événements de touche pour le menu déroulant.
      * @param {Object} event - L'événement de touche.
      */
-    handleDropdownKeydown(event) {
-        switch (event.key) {
-            case 'Enter':
-                this.toggleDropdown();
-                break;
-            case 'ArrowUp':
-                if (this.selectedOption.previousElementSibling) {
-                    this.selectedOption = this.selectedOption.previousElementSibling;
-                }
-                break;
-            case 'ArrowDown':
-                if (this.selectedOption.nextElementSibling) {
-                    this.selectedOption = this.selectedOption.nextElementSibling;
-                }
-                break;
+   handleDropdownKeydown(event) {
+        if (event.key === 'Enter') {
+            this.toggleDropdown();
         }
     }
-
     /**
      * @method initDropdownOptions
      * @description Initialise les options du menu déroulant.
@@ -257,12 +244,17 @@ class PhotographerPage {
             const contentDiv = document.createElement('div');
             contentDiv.className = 'card_content';
 
+            const textDiv = document.createElement('div');
+            textDiv.className = 'text_content';
+            contentDiv.appendChild(textDiv);
+
             const nameP = document.createElement('p');
             nameP.textContent = media.title;
-            contentDiv.appendChild(nameP);
+            textDiv.appendChild(nameP);
 
             const likesDiv = document.createElement('div');
             likesDiv.className = 'like_number';
+            textDiv.appendChild(likesDiv);
 
             const likesP = document.createElement('p');
             likesP.textContent = `${media.likes} `;
@@ -306,116 +298,6 @@ class PhotographerPage {
     priceDiv.appendChild(priceElement);
 }
 
-}
-
-/**
- * @class MediaFactory
- * @description Usine pour créer des objets Media.
- */
-class MediaFactory {
-
-    /**
-     * @method createMedia
-     * @description Crée un nouvel objet Media.
-     * @param {Object} mediaData - Les données pour le média.
-     * @returns {Media} L'objet Media créé.
-     */
-    createMedia(mediaData) {
-        if (mediaData.image) {
-            return new Photo(mediaData);
-        } else if (mediaData.video) {
-            return new Video(mediaData);
-        }
-    }
-}
-
-/**
- * @class Media
- * @description Représente un élément multimédia.
- */
-class Media {
-
-    /**
-     * @constructor
-     * @description Construit une nouvelle instance de Media.
-     * @param {Object} mediaData - Les données pour le média.
-     */
-    constructor(mediaData) {
-        this.title = mediaData.title;
-        this.likes = mediaData.likes;
-    }
-
-    /**
-     * @method createElement
-     * @description Crée un élément HTML pour le média.
-     * @throws {Error} Si la méthode n'est pas implémentée.
-     */
-    createElement() {
-        throw new Error("Method 'createElement' must be implemented.");
-    }
-}
-
-/**
- * @class Photo
- * @description Représente une photo.
- * @extends Media
- */
-class Photo extends Media {
-
-    /**
-     * @constructor
-     * @description Construit une nouvelle instance de Photo.
-     * @param {Object} mediaData - Les données pour la photo.
-     */
-    constructor(mediaData) {
-        super(mediaData);
-        this.image = mediaData.image;
-    }
-
-    /**
-     * @method createElement
-     * @description Crée un élément HTML pour la photo.
-     * @returns {HTMLElement} L'élément HTML créé.
-     */
-    createElement() {
-        const imgElement = document.createElement('img');
-        imgElement.src = `assets/images/media/${this.image}`;
-        imgElement.alt = this.title;
-        return imgElement;
-    }
-}
-
-/**
- * @class Video
- * @description Représente une vidéo.
- * @extends Media
- */
-
-class Video extends Media {
-
-    /**
-     *
-     * @constructor
-     * @description Construit une nouvelle instance de Video.
-     * @param {Object} mediaData - Les données pour la vidéo.
-     */
-    constructor(mediaData) {
-        super(mediaData);
-        this.video = mediaData.video;
-    }
-
-    /**
-     * @method createElement
-     * @description Crée un élément HTML pour la vidéo.
-     * @returns {HTMLElement} L'élément HTML créé.
-     */
-    createElement() {
-        const vidElement = document.createElement('video');
-        vidElement.src = `assets/images/media/${this.video}`;
-        vidElement.alt = this.title;
-        vidElement.controls = true;
-        return vidElement;
-    }
 }
 
 const photographerPage = new PhotographerPage();

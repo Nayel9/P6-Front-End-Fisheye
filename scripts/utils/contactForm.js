@@ -1,3 +1,10 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Sélection du formulaire
+    let form = document.querySelector("form");
+    // Réinitialisation du formulaire
+    form.reset();
+});
+
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelector(".contact_button");
 const body = document.body;
@@ -12,12 +19,33 @@ function launchModal() {
     modalbg.focus();
     // Ajoutez un écouteur d'événements pour l'événement focus
     document.addEventListener('focus', trapFocus, true);
+    body.style.overflow = "hidden";
+
+    const photographerName = document.querySelector('h1').textContent;
+    const h3Element = document.createElement('h3');
+
+    h3Element.textContent = photographerName;
+    h3Element.classList.add('name_h3')
+
+    const modalHeader = document.querySelector('.modal');
+    const formElement = document.querySelector('form');
+
+    modalHeader.insertBefore(h3Element, formElement);
+
+}
+
+function removeAllErrorMessages() {
+    let errorMessages = document.querySelectorAll("[id^='error_message-']");
+    errorMessages.forEach(function(errorMessage) {
+        errorMessage.remove();
+    });
 }
 
 const closebtn = document.querySelector(".close_btn");
 
 closebtn.addEventListener("click", function() {
     closeModal();
+    removeAllErrorMessages(); // Supprime tous les messages d'erreur
     body.removeAttribute('aria-hidden');
 });
 
@@ -25,13 +53,19 @@ closebtn.addEventListener("click", function() {
 closebtn.addEventListener("keydown", function(event) {
     if (event.key === 'Enter') {
         closeModal();
+        removeAllErrorMessages(); // Supprime tous les messages d'erreur
         body.removeAttribute('aria-hidden');
     }
 });
-
 function closeModal() {
+    let form = document.querySelector("form");
+    form.reset();
     modalbg.style.display = "none";
     document.removeEventListener('focus', trapFocus, true);
+    body.style.overflow = "";
+
+    const h3Element = document.querySelector('.name_h3');
+    h3Element.remove();
 }
 // Cette fonction vérifie si l'élément qui reçoit le focus est à l'intérieur de la modale
 function trapFocus(event) {
@@ -40,3 +74,120 @@ function trapFocus(event) {
         modalbg.focus();
     }
 }
+function removeErrorMessage(elementId) {
+    let errorMessage = document.getElementById("error_message-" + elementId);
+    let errorIcon = document.getElementById("error_icon-" + elementId);
+    if (errorMessage) {
+        errorMessage.remove();
+    }
+    if (errorIcon) {
+        errorIcon.style.display = "none"; // Cache l'icône d'erreur
+        errorIcon.setAttribute('aria-hidden', 'true');
+
+    }
+}
+
+// Validation du formulaire
+
+function validateFirstName(prenom) {
+
+    if (prenom.length < 2 || prenom === "") {
+        throw new Error("Merci de saisir un Prénom valide. ");
+    } else {
+        removeErrorMessage("first");
+    }
+}
+
+function validateLastName(nom) {
+    if (nom.length < 2 || nom === "") {
+        throw new Error("Merci de saisir un Nom valide. ");
+    } else {
+        removeErrorMessage("last");
+    }
+}
+
+function validateEmail(email) {
+    let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegex.test(email)) {
+        throw new Error("Merci de saisir une adresse email valide. ");
+    } else {
+        removeErrorMessage("email");
+    }
+}
+
+function validateMessage(message) {
+    if (message.length < 24 || message ==="") {
+        const errorMessage = document.getElementById("message");
+        errorMessage.setAttribute('placeHolder', 'Merci de saisir un message de 24 caractères minimum.');
+        errorMessage.classList.add('message-error-placeholder');
+        throw new Error("Merci de saisir un minimum de 24 caractères")
+    } else {
+        removeErrorMessage("message")
+    }
+}
+
+function submitForm() {
+    let modal = document.querySelector(".modal");
+    modal.style.display = "none";
+    let modalOver = document.querySelector(".bgroung-over");
+    console.log(modalOver);
+    modalOver.style.display = "flex";
+}
+
+function tabError(message, elementId) {
+    let element = document.getElementById(elementId);
+    let formData = element.parentElement;
+    let spanErreurMessage = document.getElementById("error_message-" + elementId);
+    let errorIcon = document.getElementById("error_icon-" + elementId);
+    if (!spanErreurMessage) {
+        spanErreurMessage = document.createElement("span");
+        spanErreurMessage.id = "error_message-" + elementId;
+        formData.append(spanErreurMessage);
+        element.classList.add('input-error');
+        spanErreurMessage.classList.add('message-error');
+    }
+
+    spanErreurMessage.textContent = message;
+    if (errorIcon) { // Ajout de cette vérification
+        errorIcon.style.display = "block";
+        errorIcon.setAttribute('aria-hidden', 'false');
+    }
+}
+
+addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let prenom = document.getElementById("first").value;
+    let nom = document.getElementById("last").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+    console.log(prenom, nom, email, message);
+
+    try {
+        validateFirstName(prenom);
+    } catch(erreur) {
+        tabError(erreur.message, 'first');
+    }
+
+    try {
+        validateLastName(nom);
+    } catch(erreur) {
+        tabError(erreur.message, 'last');
+    }
+
+    try {
+        validateEmail(email);
+    } catch(erreur) {
+        tabError(erreur.message, 'email');
+    }
+
+    try {
+        validateMessage(message);
+    } catch(erreur) {
+        tabError(erreur.message, 'message');
+    }
+
+    if (prenom && nom && email && message) {
+        submitForm();
+    }
+});

@@ -9,19 +9,72 @@
     <title>Fisheye - photographe </title>
   </head>
 
-  <div id="contact_modal" class="bground" tabindex="-1">
+  <div id="contact_modal" class="bground" tabindex="-1" aria-label="Contactez moi">
       <div class="modal">
-          <header>
+          <header class="modal-header">
               <h2>Contactez-moi</h2>
               <img src="assets/icons/close.svg" class="close_btn" tabindex="0" aria-label="Fermer le formulaire"/>
           </header>
           <form>
-              <div>
-                  <label>Prénom</label>
-                  <input />
+
+              <div class="formData">
+                  <label for="first">Prénom</label>
+                  <input
+                          class="text-control input-text"
+                          type="text"
+                          id="first"
+                          name="first"
+                          aria-label="Prénom"
+                  />
+                  <div id="error_icon-first" class="error-icon" aria-hidden="true">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                  </div>
               </div>
-              <button class="sending_button">Envoyer</button>
+
+              <div class="formData">
+                  <label for="last">Nom</label>
+                  <input
+                          class="text-control input-text"
+                          type="text"
+                          id="last"
+                          name="last"
+                          aria-label="Nom"
+                  />
+                  <div id="error_icon-last" class="error-icon" aria-hidden="true">
+                      <i class="fa-solid fa-triangle-exclamation"></i>
+                  </div>              </div>
+
+              <div class="formData">
+                  <label for="email">E-mail</label>
+                  <input
+                          class="text-control input-text+"
+                          type="email"
+                          id="email"
+                          name="email"
+                          aria-label="E-mail"
+                  />
+                  <div id="error_icon-email" class="error-icon" aria-hidden="true">
+                      <i class="fa-solid fa-triangle-exclamation"></i>
+                  </div>              </div>
+
+             <div class="formData">
+    <label for="message">Votre message</label>
+            <textarea
+                class="text-control"
+                id="message"
+                name="Votre message"
+                aria-label="Votre message"
+                placeholder="Votre message ici..."
+            ></textarea>
+            </div>
+
+              <button class="sending_button" type="submit">Envoyer</button>
           </form>
+      </div>
+
+      <div class="bgroung-over">
+          <h3>Merci pour votre message, vous recevrez une réponse très prochainement</h3>
+          <button class="closing_button">Fermer</button>
       </div>
   </div>
 
@@ -31,15 +84,6 @@
   <body>
 
     <main id="main">
-        <section class="pricandlikes">
-            <div class="like_counter">
-                <i class="fa-solid fa-heart" aria-hidden="true"></i>
-            </div>
-            <div class="price">
-
-            </div>
-
-        </section>
 
         <section class="photograph-header" aria-label="Fiche info Photographe">
             <article>
@@ -75,8 +119,18 @@
                 <!-- Photos will be dynamically added here -->
             </div>
         </section>
+
+        <section class="priceandlikes">
+            <div class="like_counter">
+                <i class="fa-solid fa-heart" aria-hidden="true"></i>
+            </div>
+            <div class="price">
+            </div>
+        </section>
     </main>
+
     <script src="scripts/pages/photographer.js"></script>
+    <script src="scripts/templates/factory.js"></script>
     <script src="scripts/utils/contactForm.js"></script>
   </body>
 </html>
