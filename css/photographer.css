@@ -33,7 +33,7 @@ li {
     margin: 0;
 }
 
-.contact_button, .sending_button, .closing_button {
+.contact_button, .sending_button, .closing_button-over {
     font-size: 18px;
     font-weight: bold;
     color: white;
@@ -363,6 +363,18 @@ form input {
     border-radius: 5px 5px 0 0;
 }
 
+/*      LightBox        */
+
+.lightbox_bground {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    height: 100%;
+    width: 1440px;
+    background-color: rgba(0, 0, 0, 1);
+    overflow: scroll;
+
+}
 
 /*      Classes JS        */
 

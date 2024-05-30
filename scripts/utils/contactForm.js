@@ -49,6 +49,20 @@ closebtn.addEventListener("click", function() {
     body.removeAttribute('aria-hidden');
 });
 
+const closeOver = document.querySelector(".closing_button-over");
+
+closeOver.addEventListener("click", function() {
+    closeModal();
+    removeAllErrorMessages();
+    body.removeAttribute('aria-hidden');
+    let modalOver = document.querySelector(".bgroung-over");
+    modalOver.style.display = "none";
+    let modal = document.querySelector(".modal");
+    modal.style.display = "flex";
+
+
+});
+
 // Ajoutez cet écouteur d'événements pour l'événement keydown
 closebtn.addEventListener("keydown", function(event) {
     if (event.key === 'Enter') {
@@ -146,7 +160,6 @@ function submitForm() {
     let modal = document.querySelector(".modal");
     modal.style.display = "none";
     let modalOver = document.querySelector(".bgroung-over");
-    console.log(modalOver);
     modalOver.style.display = "flex";
 }
 
