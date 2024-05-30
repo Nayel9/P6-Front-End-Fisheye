@@ -66,6 +66,22 @@ function closeModal() {
 
     const h3Element = document.querySelector('.name_h3');
     h3Element.remove();
+
+    // Supprimez les icônes d'erreur et réinitialisez les bordures et les placeholders
+    let errorIcons = document.querySelectorAll("[id^='error_icon-']");
+    errorIcons.forEach(function(errorIcon) {
+        errorIcon.style.display = "none"; // Cache l'icône d'erreur
+        errorIcon.setAttribute('aria-hidden', 'true');
+    });
+
+    let inputFields = document.querySelectorAll("input, textarea");
+    inputFields.forEach(function(inputField) {
+        inputField.classList.remove('input-error'); // Supprime la bordure d'erreur
+        if (inputField.id === 'message') {
+            inputField.setAttribute('placeholder', 'Votre message ici...');
+            inputField.classList.remove('message-error-placeholder');
+        }
+    });
 }
 // Cette fonction vérifie si l'élément qui reçoit le focus est à l'intérieur de la modale
 function trapFocus(event) {
@@ -189,5 +205,12 @@ addEventListener("submit", function(event) {
 
     if (prenom && nom && email && message) {
         submitForm();
+    }
+});
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+        removeAllErrorMessages(); // Supprime tous les messages d'erreur
+        body.removeAttribute('aria-hidden');
     }
 });
