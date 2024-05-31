@@ -77,19 +77,18 @@
           <button class="closing_button-over">Fermer</button>
       </div>
   </div>
-
-  <div id="lightbox_bground" class="lightbox_bground" tabindex="-1" aria-label="Contactez moi" role="dialog">
+  <div id="lightbox_bground" class="lightbox_bground" tabindex="-1" aria-label="Affichage des media dans une lightbox" role="img">
       <div class="lightbox_content">
-          <img src="assets/icons/close.svg" alt="Croix de fermeture de la lightbox" class="close_btn close_btn-lightbox" tabindex="0" aria-label="Fermer la light box"/>
-          <div class="lightbox_left-button"></div>
+          <em class="fa-solid fa-xmark close_btn-lightbox" aria-label="Fermer la light box"></em>
+
+          <em class="fa-solid fa-chevron-left lightbox_left-button" aria-label="image précédente"></em>
           <div class="lightbox_card">
-              <div class="lightbox_img"></div>
-              <div class="lightbox_title"></div>
+              <div class="lightbox_media" tabindex="0"></div>
+              <div class="lightbox_title" tabindex="0"></div>
           </div>
-          <div class="lightbox_right-button"></div>
+          <em class="fa-solid fa-chevron-right lightbox_right-button" aria-label="image suivante"></em>
       </div>
   </div>
-
 
   <header>
       <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye lien vers page d'accueil"/></a>
@@ -111,7 +110,7 @@
                     <h2 class="trier" tabindex="0">Trier par</h2>
 
                     <div class="dropdown" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="options">
-                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 512 512" class="dropdown-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="dropdown-icon">
                                 <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
                             </svg>
                         <div class="selected" tabindex="0">
@@ -145,5 +144,6 @@
     <script src="scripts/pages/photographer.js"></script>
     <script src="scripts/templates/factory.js"></script>
     <script src="scripts/utils/contactForm.js"></script>
+    <script src="scripts/utils/lightbox.js"></script>
   </body>
 </html>
