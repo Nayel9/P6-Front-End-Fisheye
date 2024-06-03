@@ -15,11 +15,18 @@ modalBtn.addEventListener("click", function() {
 });
 
 function launchModal() {
+    let header = document.querySelector('header .logo, header a');
+    header.setAttribute('aria-hidden', 'true');
+    header.setAttribute('tabindex', '-1');
+    let mainElement = document.querySelector('main');
+    applyTabIndex(mainElement);
     modalbg.style.display = "block";
     modalbg.focus();
     // Ajoutez un écouteur d'événements pour l'événement focus
     document.addEventListener('focus', trapFocus, true);
-    body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.querySelector('main').setAttribute('aria-hidden', 'true');
+
 
     const photographerName = document.querySelector('h1').textContent;
     const h3Element = document.createElement('h3');
@@ -72,8 +79,11 @@ closebtn.addEventListener("keydown", function(event) {
     }
 });
 function closeModal() {
-    let form = document.querySelector("form");
-    form.reset();
+    let header = document.querySelector('header .logo, header a');
+    header.removeAttribute('aria-hidden');
+    header.removeAttribute('tabindex');
+    let mainElement = document.querySelector('main');
+    removeTabIndex(mainElement);
     modalbg.style.display = "none";
     document.removeEventListener('focus', trapFocus, true);
     body.style.overflow = "";
@@ -96,12 +106,15 @@ function closeModal() {
             inputField.classList.remove('message-error-placeholder');
         }
     });
+
 }
 // Cette fonction vérifie si l'élément qui reçoit le focus est à l'intérieur de la modale
 function trapFocus(event) {
     if (!modalbg.contains(event.target)) {
         event.stopPropagation();
-        modalbg.focus();
+        const focusableElements = modalbg.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const firstFocusableElement = focusableElements[0];
+        firstFocusableElement.focus();
     }
 }
 function removeErrorMessage(elementId) {
@@ -161,6 +174,8 @@ function submitForm() {
     modal.style.display = "none";
     let modalOver = document.querySelector(".bgroung-over");
     modalOver.style.display = "flex";
+    let form = document.querySelector("form");
+    form.reset();
 }
 
 function tabError(message, elementId) {
@@ -177,7 +192,7 @@ function tabError(message, elementId) {
     }
 
     spanErreurMessage.textContent = message;
-    if (errorIcon) { // Ajout de cette vérification
+    if (errorIcon) {
         errorIcon.style.display = "block";
         errorIcon.setAttribute('aria-hidden', 'false');
     }
@@ -222,8 +237,43 @@ addEventListener("submit", function(event) {
 });
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
-        closeModal();
-        removeAllErrorMessages(); // Supprime tous les messages d'erreur
-        body.removeAttribute('aria-hidden');
+        // Vérifier si la lightbox est ouverte
+        if (lightbox.style.display !== 'block') {
+            closeModal();
+            removeAllErrorMessages(); // Supprime tous les messages d'erreur
+            body.removeAttribute('aria-hidden');
+        }
     }
 });
+let originalTabIndices = new Map();
+
+function applyTabIndex(element) {
+    // Stocker la valeur d'origine de tabindex
+    originalTabIndices.set(element, element.getAttribute('tabindex'));
+
+    // Appliquer tabindex="-1" à l'élément
+    element.setAttribute('tabindex', '-1');
+
+    // Parcourir tous les enfants de l'élément
+    for (let i = 0; i < element.children.length; i++) {
+        applyTabIndex(element.children[i]);
+    }
+}
+
+function removeTabIndex(element) {
+    // Récupérer la valeur d'origine de tabindex
+    let originalTabIndex = originalTabIndices.get(element);
+
+    // Si la valeur d'origine de tabindex est null, supprimer l'attribut tabindex
+    if (originalTabIndex === null) {
+        element.removeAttribute('tabindex');
+    } else {
+        // Sinon, rétablir la valeur d'origine de tabindex
+        element.setAttribute('tabindex', originalTabIndex);
+    }
+
+    // Parcourir tous les enfants de l'élément
+    for (let i = 0; i < element.children.length; i++) {
+        removeTabIndex(element.children[i]);
+    }
+}

@@ -17,18 +17,18 @@ function init() {
     closeButton = document.querySelector('.close_btn-lightbox');
 
     mediaContainer.addEventListener('click', (event) => {
-        const mediaItem = event.target.closest('.media_card');
+        const mediaItem = event.target.closest('.media');
         if (mediaItem) {
-            currentIndex = Array.from(mediaContainer.children).indexOf(mediaItem);
+            currentIndex = Array.from(mediaContainer.children).indexOf(mediaItem.parentElement);
             openLightbox();
         }
     });
 
     mediaContainer.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-            const mediaItem = event.target.closest('.media_card');
+            const mediaItem = event.target.closest('.media');
             if (mediaItem) {
-                currentIndex = Array.from(mediaContainer.children).indexOf(mediaItem);
+                currentIndex = Array.from(mediaContainer.children).indexOf(mediaItem.parentElement);
                 openLightbox();
             }
         }
@@ -54,9 +54,10 @@ function openLightbox() {
     const titleText = mediaItem.querySelector('.text_content p').textContent;
     const photographerName = document.querySelector('.photograph-header article h1').textContent;
 
-    // Clear the current content of lightboxMedia
+
+
     lightboxMedia.innerHTML = '';
-    lightboxTitle.innerHTML = ''; // Clear the current content of lightboxTitle
+    lightboxTitle.innerHTML = '';
 
     if (media.tagName === 'IMG') {
         const img = document.createElement('img');
@@ -70,12 +71,12 @@ function openLightbox() {
         lightboxMedia.appendChild(video);
     }
 
-    // Create a new h3 element for the title
+
     const title = document.createElement('h3');
     title.textContent = titleText;
     lightboxTitle.appendChild(title);
 
-    // Add aria-label to lightboxMedia
+
     lightboxMedia.setAttribute('aria-label', `photo de ${photographerName} ayant pour titre ${titleText}`);
 
     lightbox.style.display = 'block';

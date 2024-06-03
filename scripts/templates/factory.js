@@ -71,6 +71,7 @@ class Photo extends Media {
         const imgElement = document.createElement('img');
         imgElement.src = `assets/images/media/${this.image}`;
         imgElement.alt = this.title;
+        imgElement.tabIndex = 0;
         return imgElement;
     }
 }
@@ -104,6 +105,7 @@ class Video extends Media {
         vidElement.src = `assets/images/media/${this.video}`;
         vidElement.alt = this.title;
         vidElement.controls = true;
+        vidElement.tabIndex = 0;
         return vidElement;
     }
 }

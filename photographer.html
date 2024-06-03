@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -9,141 +9,144 @@
     <title>Fisheye - photographe </title>
   </head>
 
-  <div id="contact_modal" class="bground" tabindex="-1" aria-label="Contactez moi" role="dialog">
-      <div class="modal">
-          <header class="modal-header">
-              <h2>Contactez-moi</h2>
-              <img src="assets/icons/close.svg" alt="Croix de fermeture de modale" class="close_btn" tabindex="0" aria-label="Fermer le formulaire"/>
-          </header>
-          <form>
+    <body>
 
-              <div class="formData">
-                  <label for="first">Prénom</label>
-                  <input
-                          class="text-control input-text"
-                          type="text"
-                          id="first"
-                          name="first"
-                          aria-label="Prénom"
-                  />
-                  <div id="error_icon-first" class="error-icon" aria-hidden="true">
-                    <em class="fa-solid fa-triangle-exclamation"></em>
-                  </div>
-              </div>
+    <div id="contact_modal" class="bground" tabindex="-1" aria-label="Contactez moi" role="dialog">
+        <div class="modal">
+            <header class="modal-header">
+                <h2>Contactez-moi</h2>
+                <img src="assets/icons/close.svg" alt="Croix de fermeture de modale" class="close_btn" tabindex="0" aria-label="Fermer le formulaire"/>
+            </header>
+            <form>
 
-              <div class="formData">
-                  <label for="last">Nom</label>
-                  <input
-                          class="text-control input-text"
-                          type="text"
-                          id="last"
-                          name="last"
-                          aria-label="Nom"
-                  />
-                  <div id="error_icon-last" class="error-icon" aria-hidden="true">
-                      <em class="fa-solid fa-triangle-exclamation"></em>
-                  </div>              </div>
-
-              <div class="formData">
-                  <label for="email">E-mail</label>
-                  <input
-                          class="text-control input-text+"
-                          type="email"
-                          id="email"
-                          name="email"
-                          aria-label="E-mail"
-                  />
-                  <div id="error_icon-email" class="error-icon" aria-hidden="true">
-                      <em class="fa-solid fa-triangle-exclamation"></em>
-                  </div>              </div>
-
-             <div class="formData">
-    <label for="message">Votre message</label>
-            <textarea
-                class="text-control"
-                id="message"
-                name="Votre message"
-                aria-label="Votre message"
-                placeholder="Votre message ici..."
-            ></textarea>
-            </div>
-
-              <button class="sending_button" type="submit">Envoyer</button>
-          </form>
-      </div>
-
-      <div class="bgroung-over">
-          <h3>Merci pour votre message, vous recevrez une réponse très prochainement</h3>
-          <button class="closing_button-over">Fermer</button>
-      </div>
-  </div>
-  <div id="lightbox_bground" class="lightbox_bground" tabindex="-1" aria-label="Affichage des media dans une lightbox" role="img">
-      <div class="lightbox_content">
-          <em class="fa-solid fa-xmark close_btn-lightbox" aria-label="Fermer la light box"></em>
-
-          <em class="fa-solid fa-chevron-left lightbox_left-button" aria-label="image précédente"></em>
-          <div class="lightbox_card">
-              <div class="lightbox_media" tabindex="0"></div>
-              <div class="lightbox_title" tabindex="0"></div>
-          </div>
-          <em class="fa-solid fa-chevron-right lightbox_right-button" aria-label="image suivante"></em>
-      </div>
-  </div>
-
-  <header>
-      <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye lien vers page d'accueil"/></a>
-  </header>
-  <body>
-
-    <main id="main">
-
-        <section class="photograph-header" aria-label="Fiche info Photographe">
-            <article>
-                <button class="contact_button" aria-label="Me Contacter">Contactez-moi</button>
-            </article>
-        </section>
-
-        <section class="gallery" aria-label="Galerie de photos et videos">
-
-            <div class="filters" aria-label="Filtres">
-
-                    <h2 class="trier" tabindex="0">Trier par</h2>
-
-                    <div class="dropdown" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="options">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="dropdown-icon">
-                                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
-                            </svg>
-                        <div class="selected" tabindex="0">
-
-                        </div>
-                        <ol id="options" class="dropdown-menu" role="listbox" aria-label="Options">
-                            <li class="dropdown-divider" role="separator"></li>
-                            <li class="dropdown-option" tabindex="0" role="option" id="filter-popularite" data-order="1">Popularité</li>
-                            <li class="dropdown-divider" role="separator"></li>
-                            <li class="dropdown-option" tabindex="0" role="option" id="filter-date" data-order="2">Date</li>
-                            <li class="dropdown-divider" role="separator"></li>
-                            <li class="dropdown-option" tabindex="0" role="option" id="filter-titre" data-order="3">Titre</li>
-                        </ol>
+                <div class="formData">
+                    <label for="first">Prénom</label>
+                    <input
+                            class="text-control input-text"
+                            type="text"
+                            id="first"
+                            name="first"
+                            aria-label="Prénom"
+                    />
+                    <div id="error_icon-first" class="error-icon" aria-hidden="true">
+                        <em class="fa-solid fa-triangle-exclamation"></em>
                     </div>
-            </div>
+                </div>
 
-            <div class="photo-grid" id="photo-grid" role="group" aria-label="Galerie de photos et videos">
-                <!-- Photos will be dynamically added here -->
-            </div>
-        </section>
+                <div class="formData">
+                    <label for="last">Nom</label>
+                    <input
+                            class="text-control input-text"
+                            type="text"
+                            id="last"
+                            name="last"
+                            aria-label="Nom"
+                    />
+                    <div id="error_icon-last" class="error-icon" aria-hidden="true">
+                        <em class="fa-solid fa-triangle-exclamation"></em>
+                    </div>              </div>
 
-        <section class="priceandlikes">
-            <div class="like_counter">
-                <em class="fa-solid fa-heart" aria-hidden="true"></em>
-            </div>
-            <div class="price">
-            </div>
-        </section>
-    </main>
+                <div class="formData">
+                    <label for="email">E-mail</label>
+                    <input
+                            class="text-control input-text+"
+                            type="email"
+                            id="email"
+                            name="email"
+                            aria-label="E-mail"
+                    />
+                    <div id="error_icon-email" class="error-icon" aria-hidden="true">
+                        <em class="fa-solid fa-triangle-exclamation"></em>
+                    </div>              </div>
 
-    <script src="scripts/pages/photographer.js"></script>
-    <script src="scripts/templates/factory.js"></script>
-    <script src="scripts/utils/contactForm.js"></script>
-    <script src="scripts/utils/lightbox.js"></script>
-  </body>
+                <div class="formData">
+                    <label for="message">Votre message</label>
+                    <textarea
+                            class="text-control"
+                            id="message"
+                            name="Votre message"
+                            aria-label="Votre message"
+                            placeholder="Votre message ici..."
+                    ></textarea>
+                </div>
+
+                <button class="sending_button" type="submit">Envoyer</button>
+            </form>
+        </div>
+
+        <div class="bgroung-over">
+            <h3>Merci pour votre message, vous recevrez une réponse très prochainement</h3>
+            <button class="closing_button-over">Fermer</button>
+        </div>
+    </div>
+    <div id="lightbox_bground" class="lightbox_bground" tabindex="-1" aria-label="Affichage des media dans une lightbox" role="img">
+        <div class="lightbox_content">
+            <em class="fa-solid fa-xmark close_btn-lightbox" aria-label="Fermer la light box"></em>
+
+            <em class="fa-solid fa-chevron-left lightbox_left-button" aria-label="image précédente"></em>
+            <div class="lightbox_card">
+                <div class="lightbox_media" tabindex="0"></div>
+                <div class="lightbox_title" tabindex="0"></div>
+            </div>
+            <em class="fa-solid fa-chevron-right lightbox_right-button" aria-label="image suivante"></em>
+        </div>
+    </div>
+
+
+    <header>
+            <a href="index.html"><img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye lien vers page d'accueil"/></a>
+        </header>
+
+        <main id="main">
+
+            <section class="photograph-header" aria-label="Fiche info Photographe">
+                <article>
+                    <button class="contact_button" aria-label="Me Contacter">Contactez-moi</button>
+                </article>
+            </section>
+
+            <section class="gallery" aria-label="Galerie de photos et videos">
+
+                <div class="filters" aria-label="Filtres">
+
+                        <h2 class="trier" tabindex="0">Trier par</h2>
+
+                        <div class="dropdown" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="options">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="dropdown-icon">
+                                    <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+                                </svg>
+                            <div class="selected" tabindex="0">
+
+                            </div>
+                            <ol id="options" class="dropdown-menu" role="listbox" aria-label="Options">
+                                <li class="dropdown-divider" role="separator"></li>
+                                <li class="dropdown-option" tabindex="0" role="option" id="filter-popularite" data-order="1">Popularité</li>
+                                <li class="dropdown-divider" role="separator"></li>
+                                <li class="dropdown-option" tabindex="0" role="option" id="filter-date" data-order="2">Date</li>
+                                <li class="dropdown-divider" role="separator"></li>
+                                <li class="dropdown-option" tabindex="0" role="option" id="filter-titre" data-order="3">Titre</li>
+                            </ol>
+                        </div>
+                </div>
+
+                <div class="photo-grid" id="photo-grid" role="group" aria-label="Galerie de photos et videos">
+                    <!-- Photos will be dynamically added here -->
+                </div>
+            </section>
+
+            <section class="priceandlikes">
+                <div class="like_counter">
+                    <em class="fa-solid fa-heart" aria-hidden="true"></em>
+                </div>
+                <div class="price">
+                </div>
+            </section>
+        </main>
+
+        <script src="scripts/pages/photographer.js"></script>
+        <script src="scripts/templates/factory.js"></script>
+        <script src="scripts/utils/contactForm.js"></script>
+        <script src="scripts/utils/lightbox.js"></script>
+
+    </body>
 </html>

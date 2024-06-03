@@ -234,12 +234,15 @@ class PhotographerPage {
             const media = mediaFactory.createMedia(photoData);
             const mediaElement = media.createElement();
 
+
+            const mediaDiv = document.createElement('div');
+            mediaDiv.className = 'media';
+            mediaDiv.appendChild(mediaElement)
+
             const mediaCard = document.createElement('div');
             mediaCard.className = 'media_card';
-            mediaCard.tabIndex = 0;
             mediaCard.role = 'group';
-
-            mediaCard.appendChild(mediaElement);
+            mediaCard.appendChild(mediaDiv);
 
             const contentDiv = document.createElement('div');
             contentDiv.className = 'card_content';
@@ -263,6 +266,8 @@ class PhotographerPage {
         // Créer une balise i pour le solid heart
         const heartIcon = document.createElement('i');
         heartIcon.className = 'fa-solid fa-heart';
+        heartIcon.setAttribute('aria-label', `Nombre de likes pour la photo de ${photographerName} : ${media.likes}`);
+        heartIcon.setAttribute('tabindex', '0');
         // Ajouter la balise i à la balise div like_numer
         likesDiv.appendChild(heartIcon);
 
