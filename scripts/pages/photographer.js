@@ -224,9 +224,8 @@ class PhotographerPage {
      * @method renderPhotoData
      * @description Affiche les données des photos.
      * @param {Array} photos - Les données des photos.
-     * @param {string} photographerName - Le nom du photographe.
      */
-    renderPhotoData(photos, photographerName) {
+    renderPhotoData(photos) {
         const photoGrid = document.querySelector('.photo-grid');
         const mediaFactory = new MediaFactory();
 
@@ -257,27 +256,24 @@ class PhotographerPage {
 
             const likesDiv = document.createElement('div');
             likesDiv.className = 'like_number';
+            likesDiv.setAttribute('id', `${media.title}`);
+            likesDiv.setAttribute('aria-label', `Nombre de likes pour le media ${media.title} : ${media.likes}`);
+            likesDiv.setAttribute('tabindex', '0');
             textDiv.appendChild(likesDiv);
 
             const likesP = document.createElement('p');
             likesP.textContent = `${media.likes} `;
             likesDiv.appendChild(likesP);
 
-        // Créer une balise i pour le solid heart
-        const heartIcon = document.createElement('i');
+
+        const heartIcon = document.createElement('em');
         heartIcon.className = 'fa-solid fa-heart';
-        heartIcon.setAttribute('aria-label', `Nombre de likes pour la photo de ${photographerName} : ${media.likes}`);
-        heartIcon.setAttribute('tabindex', '0');
-        // Ajouter la balise i à la balise div like_numer
         likesDiv.appendChild(heartIcon);
 
-        // Ajouter la balise like_numer à la balise content
         contentDiv.appendChild(likesDiv);
 
-        // Ajouter la balise content à la balise media_card
         mediaCard.appendChild(contentDiv);
 
-        // Ajouter la balise media_card à la grille de photos
         photoGrid.appendChild(mediaCard);
     });
 }

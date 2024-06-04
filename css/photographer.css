@@ -305,6 +305,10 @@ form input {
     cursor: pointer;
 }
 
+.media_card {
+    width: 350px;
+}
+
 .media img, .media video {
     height: 100%;
     width: 100%;
@@ -341,6 +345,7 @@ form input {
     align-items: center;
     gap: 5px;
     margin-left: 10px;
+    cursor: pointer;
 
 }
 
@@ -362,6 +367,13 @@ form input {
     z-index: 10;
     background-color: #DB8876;
     border-radius: 5px 5px 0 0;
+}
+
+.like_counter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
 }
 
 /*      LightBox        */
