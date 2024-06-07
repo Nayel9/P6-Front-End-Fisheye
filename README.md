@@ -19,7 +19,7 @@ Ce projet est une application web accessible de gestion de médias pour les phot
 
 1. Clonez ce dépôt sur votre machine locale.
 2. Ouvrez le fichier `index.html` dans votre navigateur.
-Ou accédez à la version en ligne [ici](https://nayel9.github.io/P6-Front-End-Fisheye/index.html)
+- Ou accédez à la version en ligne [ici](https://nayel9.github.io/P6-Front-End-Fisheye/index.html)
 
 ## Utilisation
 - Sélectionnez un photographe pour voir ses médias. 
