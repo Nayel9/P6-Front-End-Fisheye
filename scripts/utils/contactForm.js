@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const modalbg = document.querySelector(".bground");
+const modal = document.querySelector(".modal");
 const modalBtn = document.querySelector(".contact_button");
 const body = document.body;
 
@@ -20,12 +21,17 @@ function launchModal() {
     header.setAttribute('tabindex', '-1');
     let mainElement = document.querySelector('main');
     applyTabIndex(mainElement);
+    lastFocus = document.activeElement;
+    document.addEventListener('keydown', trapFocus);
     modalbg.style.display = "block";
-    modalbg.focus();
+    modal.style.display = "flex";
+    closebtn.focus();
     // Ajoutez un écouteur d'événements pour l'événement focus
     document.addEventListener('focus', trapFocus, true);
     document.body.style.overflow = "hidden";
     document.querySelector('main').setAttribute('aria-hidden', 'true');
+    modalbg.setAttribute('aria-hidden', 'false');
+    modal.setAttribute('aria-hidden', 'false');
 
 
     const photographerName = document.querySelector('h1').textContent;
@@ -33,11 +39,14 @@ function launchModal() {
 
     h3Element.textContent = photographerName;
     h3Element.classList.add('name_h3')
+    h3Element.setAttribute('tabindex', '0');
+    h3Element.setAttribute('aria-label', `Nom du photographe : ${photographerName}`);
 
     const modalHeader = document.querySelector('.modal');
     const formElement = document.querySelector('form');
 
     modalHeader.insertBefore(h3Element, formElement);
+
 
 }
 
@@ -64,6 +73,7 @@ closeOver.addEventListener("click", function() {
     body.removeAttribute('aria-hidden');
     let modalOver = document.querySelector(".bgroung-over");
     modalOver.style.display = "none";
+    modalOver.setAttribute('aria-hidden', 'true');
     let modal = document.querySelector(".modal");
     modal.style.display = "flex";
 
@@ -85,8 +95,12 @@ function closeModal() {
     let mainElement = document.querySelector('main');
     removeTabIndex(mainElement);
     modalbg.style.display = "none";
+    document.removeEventListener('keydown', trapFocus);
+    lastFocus.focus();
     document.removeEventListener('focus', trapFocus, true);
     body.style.overflow = "";
+    modalbg.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('aria-hidden', 'true');
 
     const h3Element = document.querySelector('.name_h3');
     h3Element.remove();
@@ -107,16 +121,30 @@ function closeModal() {
         }
     });
 
+    modalbg.blur();
+
 }
-// Cette fonction vérifie si l'élément qui reçoit le focus est à l'intérieur de la modale
+
+let lastFocus;
+
 function trapFocus(event) {
-    if (!modalbg.contains(event.target)) {
-        event.stopPropagation();
-        const focusableElements = modalbg.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        const firstFocusableElement = focusableElements[0];
+    if (modalbg.contains(document.activeElement)) {
+        return;
+    }
+
+    const focusableElements = modalbg.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const firstFocusableElement = focusableElements[0];
+    const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey && document.activeElement === firstFocusableElement) {
+        lastFocusableElement.focus();
+        event.preventDefault();
+    } else if (!event.shiftKey && document.activeElement === lastFocusableElement) {
         firstFocusableElement.focus();
+        event.preventDefault();
     }
 }
+
 function removeErrorMessage(elementId) {
     let errorMessage = document.getElementById("error_message-" + elementId);
     let errorIcon = document.getElementById("error_icon-" + elementId);
@@ -174,6 +202,7 @@ function submitForm() {
     modal.style.display = "none";
     let modalOver = document.querySelector(".bgroung-over");
     modalOver.style.display = "flex";
+    modalOver.setAttribute('aria-hidden', 'false');
     let form = document.querySelector("form");
     form.reset();
 }
@@ -189,6 +218,9 @@ function tabError(message, elementId) {
         formData.append(spanErreurMessage);
         element.classList.add('input-error');
         spanErreurMessage.classList.add('message-error');
+        spanErreurMessage.setAttribute('role', 'alert');
+        errorIcon.setAttribute('role', 'alert');
+
     }
 
     spanErreurMessage.textContent = message;

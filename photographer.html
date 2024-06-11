@@ -11,22 +11,22 @@
 
     <body>
 
-    <div id="contact_modal" class="bground" tabindex="-1" aria-label="Contactez moi" role="dialog">
-        <div class="modal">
+    <div id="contact_modal" class="bground" tabindex="-1">
+        <div class="modal" role="dialog" tabindex="0" aria-label="Formulaire de contact">
             <header class="modal-header">
-                <h2>Contactez-moi</h2>
-                <img src="assets/icons/close.svg" alt="Croix de fermeture de modale" class="close_btn" tabindex="0" aria-label="Fermer le formulaire"/>
+                <h2 tabindex="0">Contactez-moi</h2>
+                <img src="assets/icons/close.svg" alt="Croix de fermeture de modale" role="button" class="close_btn" tabindex="0" aria-label="Dialog Fermer le formulaire"/>
             </header>
             <form>
 
                 <div class="formData">
-                    <label for="first">Prénom</label>
+                    <label for="first" aria-label="Prénom">Prénom</label>
                     <input
                             class="text-control input-text"
                             type="text"
                             id="first"
                             name="first"
-                            aria-label="Prénom"
+                            aria-labelledby="first"
                     />
                     <div id="error_icon-first" class="error-icon" aria-hidden="true">
                         <em class="fa-solid fa-triangle-exclamation"></em>
@@ -40,7 +40,7 @@
                             type="text"
                             id="last"
                             name="last"
-                            aria-label="Nom"
+                            aria-labelledby="last"
                     />
                     <div id="error_icon-last" class="error-icon" aria-hidden="true">
                         <em class="fa-solid fa-triangle-exclamation"></em>
@@ -53,7 +53,7 @@
                             type="email"
                             id="email"
                             name="email"
-                            aria-label="E-mail"
+                            aria-labelledby="email"
                     />
                     <div id="error_icon-email" class="error-icon" aria-hidden="true">
                         <em class="fa-solid fa-triangle-exclamation"></em>
@@ -65,30 +65,30 @@
                             class="text-control"
                             id="message"
                             name="Votre message"
-                            aria-label="Votre message"
+                            aria-labelledby="message"
                             placeholder="Votre message ici..."
                     ></textarea>
                 </div>
 
-                <button class="sending_button" type="submit">Envoyer</button>
+                <button class="sending_button" type="submit" role="button" aria-label="Envoyer votre message">Envoyer</button>
             </form>
         </div>
 
-        <div class="bgroung-over">
+        <div class="bgroung-over" role="dialog" aria-label="Le message a été envoyé" >
             <h3>Merci pour votre message, vous recevrez une réponse très prochainement</h3>
-            <button class="closing_button-over">Fermer</button>
+            <button class="closing_button-over" role="button" aria-label="Fermer la modale">Fermer</button>
         </div>
     </div>
-    <div id="lightbox_bground" class="lightbox_bground" tabindex="-1" aria-label="Affichage des media dans une lightbox" role="img">
+    <div id="lightbox_bground" class="lightbox_bground" tabindex="-1" aria-label="Affichage des media dans une lightbox" role="dialog">
         <div class="lightbox_content">
-            <em class="fa-solid fa-xmark close_btn-lightbox" aria-label="Fermer la light box"></em>
+            <em class="fa-solid fa-xmark close_btn-lightbox" role="button" aria-label="Fermer la light box" tabindex="0"></em>
 
-            <em class="fa-solid fa-chevron-left lightbox_left-button" aria-label="image précédente"></em>
+            <em class="fa-solid fa-chevron-left lightbox_left-button" role="button" aria-label="Naviguer vers l'image précédente" tabindex="0"></em>
             <div class="lightbox_card">
                 <div class="lightbox_media" tabindex="0"></div>
                 <div class="lightbox_title" tabindex="0"></div>
             </div>
-            <em class="fa-solid fa-chevron-right lightbox_right-button" aria-label="image suivante"></em>
+            <em class="fa-solid fa-chevron-right lightbox_right-button" role="button" aria-label="Naviguer vers l'image suivante" tabindex="0"></em>
         </div>
     </div>
 
@@ -115,16 +115,16 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="dropdown-icon">
                                     <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
                                 </svg>
-                            <div class="selected" tabindex="0">
+                            <div class="selected" tabindex="0" aria-label="Options de tri menu déroulant">
 
                             </div>
                             <ol id="options" class="dropdown-menu" role="listbox" aria-label="Options">
                                 <li class="dropdown-divider" role="separator"></li>
-                                <li class="dropdown-option" tabindex="0" role="option" id="filter-popularite" data-order="1">Popularité</li>
+                                <li class="dropdown-option" tabindex="0" role="option" id="filter-popularite" aria-label="Trier par popularité" data-order="1">Popularité</li>
                                 <li class="dropdown-divider" role="separator"></li>
-                                <li class="dropdown-option" tabindex="0" role="option" id="filter-date" data-order="2">Date</li>
+                                <li class="dropdown-option" tabindex="0" role="option" id="filter-date" aria-label="Trier par date" data-order="2">Date</li>
                                 <li class="dropdown-divider" role="separator"></li>
-                                <li class="dropdown-option" tabindex="0" role="option" id="filter-titre" data-order="3">Titre</li>
+                                <li class="dropdown-option" tabindex="0" role="option" id="filter-titre" aria-label="Trier par titre" data-order="3">Titre</li>
                             </ol>
                         </div>
                 </div>

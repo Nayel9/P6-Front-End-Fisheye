@@ -106,6 +106,17 @@ class Video extends Media {
         vidElement.alt = this.title;
         vidElement.controls = true;
         vidElement.tabIndex = 0;
+        
+        vidElement.addEventListener('play', function(event) {
+            event.preventDefault();
+        });
+
+        vidElement.addEventListener('pause', function(event) {
+            event.preventDefault();
+        });
+
         return vidElement;
+
     }
+
 }

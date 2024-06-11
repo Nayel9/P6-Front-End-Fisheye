@@ -161,9 +161,9 @@ class PhotographerPage {
          * @param {Object} option - L'option du menu déroulant à sélectionner.
          */
         selectOption(option) {
-            console.log('Option sélectionnée:', option.textContent)
             const selectedElement = document.querySelector('.dropdown .selected');
             selectedElement.textContent = option.textContent;
+            selectedElement.setAttribute('aria-label', `Option sélectionnée : ${option.textContent}`);
 
             if (this.selectedOption) {
                 this.selectedOption.classList.remove('hidden');
@@ -344,14 +344,14 @@ handleLikeClick(event) {
     }
 }
 
-handleLikeKeydown(event) {
-    // Vérifier si la touche "Entrée" a été pressée
-    if (event.key === 'Enter') {
-        this.handleLikeClick(event);
+    handleLikeKeydown(event) {
+        // Vérifier si la touche "Entrée" a été pressée
+        if (event.key === 'Enter') {
+            this.handleLikeClick(event);
+        }
     }
-}
 
-updateTotalLikes() {
+    updateTotalLikes() {
     // Récupérer les données "like" pour ces médias
     const likesData = this.media.map(media => media.likes);
 
@@ -363,9 +363,9 @@ updateTotalLikes() {
 
     // Mettre à jour le contenu textuel de la balise p avec la nouvelle somme totale de "likes"
     totalLikesElement.textContent = totalLikes;
-}
+    }
 
 }
-
 const photographerPage = new PhotographerPage();
+
 photographerPage.init();
