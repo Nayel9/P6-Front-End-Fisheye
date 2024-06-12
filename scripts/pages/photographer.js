@@ -31,7 +31,7 @@ class PhotographerPage {
                 .then(data => {
                     const photographer = data.photographers.find(p => p.id === parseInt(this.photographerId));
                     this.renderPhotographerData(photographer);
-                    localStorage.setItem('photographerImage', photographer.portrait);
+                    localStorage.setItem('photographerImage', photographer.photographers);
                 });
         }
 
@@ -39,7 +39,7 @@ class PhotographerPage {
          * @method fetchPhotoData
          * @description Récupère les données des photos.
          */
-        fetchPhotoData(photos) {
+        fetchPhotoData() {
             fetch('data/photographers.json')
                 .then(response => response.json())
                 .then(data => {
