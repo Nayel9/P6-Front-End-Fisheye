@@ -1,27 +1,28 @@
- async function getPhotographers() {
-    // Vérifiez si les photographes sont déjà stockés dans le localStorage
+async function getPhotographers() {
+
     const storedPhotographers = localStorage.getItem('photographers');
 
     if (storedPhotographers) {
-        // Si les photographes sont stockés, parsez-les et utilisez-les
+
         const photographers = JSON.parse(storedPhotographers);
         return { photographers };
     } else {
-        // Si les photographes ne sont pas stockés, faites une requête pour les récupérer
+
         const response = await fetch('data/photographers.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         } else {
             const data = await response.json();
 
-            // Stockez les photographes dans le localStorage
+
             localStorage.setItem('photographers', JSON.stringify(data.photographers));
 
             return data;
         }
     }
 }
-    async function displayData(photographers) {
+
+async function displayData(photographers) {
         const photographersSection = document.querySelector(".photographer_section");
 
         photographers.forEach((photographer) => {
@@ -31,14 +32,18 @@
         });
     }
 
-    async function init() {
-        // Récupère les datas des photographes
+async function init() {
+
         const { photographers } = await getPhotographers();
-        displayData(photographers);
+        await displayData(photographers);
     }
     
-    init();
+init().then(() => {
+    console.log('Initialization complete');
+}).catch((error) => {
+    console.error('Error during initialization', error);
+});
 
-    window.onload = function() {
-        document.querySelector('.logo').focus();
-    };
+window.onload = function() {
+    document.querySelector('.logo').focus();
+};

@@ -1,3 +1,5 @@
+//      Création de la section de présentation des photographes
+
 function photographerTemplate(data) {
     const { name, portrait, id, city, country, tagline, price } = data;
 

@@ -7,6 +7,8 @@ let nextButton;
 let closeButton;
 let currentIndex = 0;
 
+//      Fonction d'initialisation
+
 function init() {
     mediaContainer = document.querySelector('#photo-grid');
     lightbox = document.querySelector('#lightbox_bground');
@@ -37,8 +39,40 @@ function init() {
     prevButton.addEventListener('click', showPrevMedia);
     nextButton.addEventListener('click', showNextMedia);
     closeButton.addEventListener('click', closeLightbox);
-
     document.addEventListener('keydown', handleKeydown);
+}
+
+//      Fonctions Handle
+
+function handleKeydown(event) {
+    // If the lightbox is not displayed, do nothing
+    if (lightbox.style.display !== 'block') {
+        return;
+    }
+
+    switch (event.key) {
+        case 'ArrowLeft':
+            showPrevMedia();
+            break;
+        case 'ArrowRight':
+            showNextMedia();
+            break;
+        case 'Escape':
+            closeLightbox();
+            break;
+        case ' ':
+            // If the current media is a video, play or pause it
+            const media = lightboxMedia.querySelector('video');
+            if (media) {
+                if (media.paused) {
+                    media.play();
+                } else {
+                    media.pause();
+                }
+                event.preventDefault(); // Prevent the default action (scrolling)
+            }
+            break;
+    }
 }
 
 function trapFocus(event) {
@@ -48,13 +82,13 @@ function trapFocus(event) {
     }
 }
 
+//      Fonctions d'ouverture et de fermeture de la lightbox
+
 function openLightbox() {
     const mediaItem = mediaContainer.children[currentIndex];
     const media = mediaItem.querySelector('img, video');
     const titleText = mediaItem.querySelector('.text_content p').textContent;
     const photographerName = document.querySelector('.photograph-header article h1').textContent;
-
-
 
     lightboxMedia.innerHTML = '';
     lightboxTitle.innerHTML = '';
@@ -100,6 +134,8 @@ function closeLightbox() {
 
 }
 
+//     Fonctions de navigation
+
 function showPrevMedia() {
     currentIndex = (currentIndex - 1 + mediaContainer.children.length) % mediaContainer.children.length;
     openLightbox();
@@ -110,34 +146,5 @@ function showNextMedia() {
     openLightbox();
 }
 
-function handleKeydown(event) {
-    // If the lightbox is not displayed, do nothing
-    if (lightbox.style.display !== 'block') {
-        return;
-    }
 
-    switch (event.key) {
-        case 'ArrowLeft':
-            showPrevMedia();
-            break;
-        case 'ArrowRight':
-            showNextMedia();
-            break;
-        case 'Escape':
-            closeLightbox();
-            break;
-        case ' ':
-            // If the current media is a video, play or pause it
-            const media = lightboxMedia.querySelector('video');
-            if (media) {
-                if (media.paused) {
-                    media.play();
-                } else {
-                    media.pause();
-                }
-                event.preventDefault(); // Prevent the default action (scrolling)
-            }
-            break;
-    }
-}
 document.addEventListener('DOMContentLoaded', init);
