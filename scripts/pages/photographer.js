@@ -1,3 +1,5 @@
+// noinspection JSValidateTypes
+
 /**
      * @class PhotographerPage
      * @description Représente une page pour un photographe spécifique.
@@ -8,7 +10,7 @@ class PhotographerPage {
          * @constructor
          * @description Construit une nouvelle instance de PhotographerPage.
          */
-    constructor() {
+    constructor(id, name, city, country, tags, tagline, price, portrait, date) {
             this.dropdown = document.querySelector('.dropdown');
             this.options = document.querySelector('.dropdown-menu');
             this.dropdownButton = document.querySelector('.dropdown');
@@ -17,7 +19,16 @@ class PhotographerPage {
             this.selectedOption = document.querySelector('#filter-popularite');
             this.photographerId = new URLSearchParams(window.location.search).get('id');
             this.media = [];
+            this.id = id;
+            this.name = name;
+            this.city = city;
+            this.country = country;
+            this.tagline = tagline;
+            this.price = price;
+            this.portrait = portrait;
+            this.date = date;
         }
+
 
         //    Fonctions Fetch
 
@@ -46,7 +57,7 @@ class PhotographerPage {
                     this.media = data.media.filter(p => p.photographerId === parseInt(this.photographerId));
 
                     const photos = data.media.filter(p => p.photographerId === parseInt(this.photographerId));
-                    this.renderPhotoData(photos, this.photographerName);
+                    this.renderPhotoData(photos);
 
                     photos.forEach(photo => {
                         if (photo.image) {
@@ -255,16 +266,11 @@ class PhotographerPage {
          * @description Bascule le menu déroulant.
          */
         handleLikeClick(event) {
-            // Récupérer le titre du media à partir de l'ID de l'élément
             const mediaTitle = event.currentTarget.id;
 
-            // Trouver le media correspondant dans les données JSON
             const media = this.media.find(media => media.title === mediaTitle);
 
-            // Vérifier que le media a été trouvé
             if (media) {
-                // Si le media a été aimé, décrémenter sa valeur "likes" et mettre à jour sa propriété "liked" à false
-                // Si le media n'a pas été aimé, incrémenter sa valeur "likes" et mettre à jour sa propriété "liked" à true
                 if (media.liked) {
                     media.likes--;
                     media.liked = false;
@@ -273,10 +279,8 @@ class PhotographerPage {
                     media.liked = true;
                 }
 
-                // Mettre à jour le contenu textuel de la balise p avec la nouvelle valeur de "likes"
                 event.currentTarget.querySelector('p').textContent = media.likes;
 
-                // Mettre à jour le total des likes
                 this.updateTotalLikes();
             }
         }
@@ -287,7 +291,6 @@ class PhotographerPage {
          * @param {Object} event - L'événement de touche.
          */
         handleLikeKeydown(event) {
-            // Vérifier si la touche "Entrée" a été pressée
             if (event.key === 'Enter') {
                 this.handleLikeClick(event);
             }

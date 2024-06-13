@@ -1,14 +1,14 @@
 /**
  * @class MediaFactory
- * @description Usine pour créer des objets Media.
+ * @description Usine pour créer des objets Média.
  */
 class MediaFactory {
 
     /**
      * @method createMedia
-     * @description Crée un nouvel objet Media.
+     * @description Crée un nouvel objet Média.
      * @param {Object} mediaData - Les données pour le média.
-     * @returns {Media} L'objet Media créé.
+     * @returns {Media} L'objet Média créé.
      */
     createMedia(mediaData) {
         if (mediaData.image) {
@@ -27,7 +27,7 @@ class Media {
 
     /**
      * @constructor
-     * @description Construit une nouvelle instance de Media.
+     * @description Construit une nouvelle instance de Média.
      * @param {Object} mediaData - Les données pour le média.
      */
     constructor(mediaData) {
