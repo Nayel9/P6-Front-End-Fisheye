@@ -20,7 +20,7 @@
             <form>
 
                 <div class="formData">
-                    <label for="first" aria-label="Prénom">Prénom</label>
+                    <label for="first">Prénom</label>
                     <input
                             class="text-control input-text"
                             type="text"
@@ -49,11 +49,12 @@
                 <div class="formData">
                     <label for="email">E-mail</label>
                     <input
-                            class="text-control input-text+"
+                            class="text-control input-text"
                             type="email"
                             id="email"
                             name="email"
                             aria-labelledby="email"
+                            autocomplete="email"
                     />
                     <div id="error_icon-email" class="error-icon" aria-hidden="true">
                         <em class="fa-solid fa-triangle-exclamation"></em>
@@ -74,7 +75,7 @@
             </form>
         </div>
 
-        <div class="bgroung-over" role="dialog" aria-label="Le message a été envoyé" >
+        <div class="bgroung-over" role="dialog" tabindex="0" aria-label="Le message a été envoyé" >
             <h3>Merci pour votre message, vous recevrez une réponse très prochainement</h3>
             <button class="closing_button-over" role="button" aria-label="Fermer la modale">Fermer</button>
         </div>

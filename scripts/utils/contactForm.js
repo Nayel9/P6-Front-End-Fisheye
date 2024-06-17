@@ -124,14 +124,15 @@ function tabError(message, elementId) {
         formData.append(spanErreurMessage);
         element.classList.add('input-error');
         spanErreurMessage.classList.add('message-error');
-        spanErreurMessage.setAttribute('role', 'alert');
-        errorIcon.setAttribute('role', 'alert');
+        spanErreurMessage.setAttribute('tabindex', '0');
+        spanErreurMessage.setAttribute('aria-label', 'entrée invalide');
     }
 
     spanErreurMessage.textContent = message;
     if (errorIcon) {
         errorIcon.style.display = "block";
         errorIcon.setAttribute('aria-hidden', 'false');
+        errorIcon.setAttribute('role', 'alert');
     }
 }
 
